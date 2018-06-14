@@ -109,9 +109,13 @@
     }
     var token = getParameterByName("token", document.location)
     var dataDebitId = "app-cade-demo"
-    var decoded = jwt_decode(token);
-    var hat = decoded.iss;
-    console.log(decoded);
+    if (token) {
+	    var decoded = jwt_decode(token);
+	    var hat = decoded.iss;
+	    console.log(decoded);
+	} else {
+		var hat = "testing.hubat.net"
+	}
 
     var source = document.getElementById("entry-template").innerHTML;
     var template = Handlebars.compile(source);
