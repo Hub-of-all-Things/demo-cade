@@ -5,7 +5,7 @@
     <title>HAT at CADE 2018</title>
     <script src="jwt-decode.js" type="text/javascript" charset="utf-8"></script>
     <script src="handlebars-latest.js" type="text/javascript" charset="utf-8"></script>
-    <script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+    <script src='https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js'></script>
     <script id="entry-template" type="text/x-handlebars-template">
         <h3>{{hat}}</h3>
         <section class="split-options">
@@ -15,9 +15,11 @@
                 <h3>{{profile.email}}</h3>
             </div>
             <div>
-                {{#each data}}
-                {{this}}<br />
-                {{/each}}
+                <ul>
+                    {{#each data}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
             </div>
         </section>
     </script>
@@ -25,13 +27,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Slab:300|Open+Sans:300,400,600,700">
     <style type="text/css" media="screen">
-    	.hatlogin input {
-    		padding: 18px 30px;
-    		font-size: 1.1428571429rem;
-    		line-height: 1.6428571429rem;
-    		margin-bottom: 20px;
-    		border-radius: 3px;
-    	}	
+    .hatlogin input {
+        padding: 18px 30px;
+        font-size: 1.1428571429rem;
+        line-height: 1.6428571429rem;
+        margin-bottom: 20px;
+        border-radius: 3px;
+    }
+
+    #hat-content img {
+    	width: 120px;
+    }
     </style>
 </head>
 
@@ -63,14 +69,16 @@
                 <div class="page-wrap">
                     <h1>CADE 2018</h1>
                     <div class="hatlogin">
-                    	<input value="" name="hataddress" class="" id="hataddress-input" placeholder="testing.hubat.net" size="50">
-                    	<a id="hataddress-link" href="" class="btn primary large">Log in with your HAT</a></div>
-                    </div>
+                        <input value="" name="hataddress" class="" id="hataddress-input" placeholder="testing.hubat.net" size="50">
+                        <a id="hataddress-link" href="" class="btn primary large">Log in with your HAT</a></div>
+                </div>
                 <div class="banner__background"></div>
             </section>
             <section class="hover-box cnt-one-col__hover-box page-wrap">
                 <h2>Review the data from your HAT</h2>
-                <div id="hat-content"></div>
+                <div id="hat-content">
+                	<h3>Loading data, please wait...</h3>
+                </div>
             </section>
             <div class="page-wrap">
                 <section class="reach-out">
@@ -78,7 +86,7 @@
                         <h3>Stay in touch</h3><a target="_blank" href="https://www.facebook.com/hubofallthings/" class="icon-social-facebook js-track-link"></a> <a target="_blank" href="https://twitter.com/hubofallthings" class="icon-social-twitter js-track-link"></a> <a target="_blank" href="https://github.com/Hub-of-all-Things" class="icon-social-github js-track-link"></a>
                     </section>
                     <section>
-                    	<a href="https://developers.hubofallthings.com" class="btn large">View developement guides</a>
+                        <a href="https://developers.hubofallthings.com" class="btn large">View developement guides</a>
                     </section>
                 </section>
             </div>
@@ -90,7 +98,16 @@
         </div>
     </section>
     <script type="text/javascript" charset="utf-8">
-    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhcHBsaWNhdGlvblZlcnNpb24iOiIwLjAuMSIsInN1YiI6IjEteklpbFg2QVwvQjIwTUFYU08rMDdNMW93OTN3RHdJZDRGYVBPUTlzNktndzBVSkN1MjlvYU9NOUxoRHA0cUJBZnloc09PXC9qeG1neW1qa1RVV1wvQXRXS2lFWkZocWtyejk3UXBjPSIsImFwcGxpY2F0aW9uIjoiY2FkZS1kZW1vIiwiaXNzIjoidGVzdGluZy5odWJhdC5uZXQiLCJleHAiOjE1MzE1NTUzNDEsImlhdCI6MTUyODk2MzM0MSwianRpIjoiMjQyYmM1MWIxN2U5MjYyNDkzZGQ0ODhiMmU5MWQzNTVjMWI3ODI5ZGE0NWI2MzQzNzg1MjY2ZTkzZDkwMWJmY2EyNzljMTU2NjU2NjA1ODE4NTY3MDJhOGQ0YmMzZmIwY2VjZjkwMjYyNGE1NjVlMzJmZWY2ZDgyZGExMjNlN2FhOTM0ZTA5OGNlNjEyNWU4OGZiNGZmZTdjYzFhM2FhZDViZmExMjhmNjQ4OTUwZTRiNDk2ZGM5YjllYzgxZjZmYWRlMDAyNGE1MTJjZTZmZGJlNWNiZGY4ZWQ3YTM3ZjE1ZDNmMTI5NmRhYjFiZGE5OTNjN2Y4MzVhY2U5NGRkYSJ9.GpKzJ0XnhAtfRJ6DqfQk1SZr9_7lFSl-9YZHiUThrKbZuX1iQuTx8W4abwPPmhhcVfZs6VELPSPfkeOl-Yx9_XmZqmxgbPiqo6cnY5CbV0hyHR9tz-bOVmJyLs0TUXo1JCZlOhxxfVCTUw_e91oSQM_61zZmumgAljfNFzEtvOtS-45sd-qn-LFMeVyruTvPnqPIRYdI7X8QDuPWvk4aSCLIu_w98l8-GHwtbnC2nX-acLAcGNDjofclFmrb-Q8Yjhr1Ld13nDYPcbNgD_2HfnzqqW3lOIhkYoaP_2-xd9-lsRhu-BU9IDmsh9hfaXOf_zhJmyDVDab6Z4a56qeQZg"
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    var token = getParameterByName("token", document.location)
     var dataDebitId = "app-cade-demo"
     var decoded = jwt_decode(token);
     var hat = decoded.iss;
@@ -99,8 +116,8 @@
     var source = document.getElementById("entry-template").innerHTML;
     var template = Handlebars.compile(source);
 
-    document.getElementById("hataddress-input").addEventListener("input", function(){
-    	document.getElementById("hataddress-link").href = "https://" + document.getElementById("hataddress-input").value
+    document.getElementById("hataddress-input").addEventListener("input", function() {
+        document.getElementById("hataddress-link").href = "https://" + document.getElementById("hataddress-input").value + "/#/hatlogin?name=cade-demo&redirect=https://hub-of-all-things.github.io/demo-cade/"
     });
 
     fetch('https://' + hat + '/api/v2.6/data-debit/' + dataDebitId + '/values', {
@@ -113,15 +130,32 @@
         })
         .then(function(bundle) {
             console.log(bundle);
-            var context = {
-                hat: hat,
-                profile: {
-                    name: _.find(bundle.bundle.profile, function(o) { return o.data.name != "" }).data.name,
-                    email: _.find(bundle.bundle.profile, function(o) { return o.data.email != "" }).data.email,
-                    photo_url: _.find(bundle.bundle.photo, function(o) { return o.data.photo_url != "" }).data.photo_url
-                },
-                data: _.map(bundle.bundle.messages, "data.message")
-            };
+            if (_.isUndefined(bundle.bundle)) {
+                var context = {
+                    hat: "Log In to see the data",
+                    profile: {
+                        name: "John Smith",
+                        email: "email@example.com",
+                        photo_url: ""
+                    }
+                }
+            } else {
+                var context = {
+                    hat: hat,
+                    profile: {
+                        name: _.find(
+                            _.map(bundle.bundle.profile, function(o) { return o.data.name }),
+                            function(o) { return !_.isUndefined(o) && o !== "" }),
+                        email: _.find(
+                            _.map(bundle.bundle.profile, function(o) { return o.data.email }),
+                            function(o) { return !_.isUndefined(o) && o !== "" }),
+                        photo_url: _.findLast(
+                            _.map(bundle.bundle.photo, function(o) { return o.data.photo_url }),
+                            function(o) { return !_.isUndefined(o) && o !== "" }),
+                    },
+                    data: _.map(bundle.bundle.messages, "data.message")
+                };
+            }
             var html = template(context);
 
             document.getElementById("hat-content").innerHTML = html
