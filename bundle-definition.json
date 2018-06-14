@@ -1,0 +1,70 @@
+{
+    "profile":
+    {
+        "endpoints": [
+        {
+            "endpoint": "rumpel/profile",
+            "mapping":
+            {
+                "name": "personal.firstName",
+                "email": "contact.primaryEmail",
+                "lastUpdated": "dateCreatedLocal"
+            }
+        },
+        {
+            "endpoint": "facebook/profile",
+            "mapping":
+            {
+                "name": "name",
+                "email": "email"
+            }
+        }],
+        "orderBy": "lastUpdated",
+        "ordering": "descending"
+    },
+    "photo":
+    {
+        "endpoints": [
+        {
+            "endpoint": "rumpel/profile",
+            "mapping":
+            {
+                "photo_url": "photo.avatar"
+            }
+        },
+        {
+            "endpoint": "facebook/profile/picture",
+            "mapping":
+            {
+                "photo_url": "url"
+            }
+        }]
+    },
+    "messages":
+    {
+        "endpoints": [
+        {
+            "endpoint": "rumpel/notablesv1",
+            "mapping":
+            {
+                "message": "message"
+            }
+        },
+        {
+            "endpoint": "facebook/feed",
+            "mapping":
+            {
+                "message": "message"
+            }
+        },
+        {
+            "endpoint": "twitter/tweets",
+            "mapping":
+            {
+                "message": "text"
+            }
+        }],
+        "orderBy": "lastUpdated",
+        "ordering": "descending"
+    }
+}

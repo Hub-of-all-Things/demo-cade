@@ -1,0 +1,132 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>HAT at CADE 2018</title>
+    <script src="jwt-decode.js" type="text/javascript" charset="utf-8"></script>
+    <script src="handlebars-latest.js" type="text/javascript" charset="utf-8"></script>
+    <script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+    <script id="entry-template" type="text/x-handlebars-template">
+        <h3>{{hat}}</h3>
+        <section class="split-options">
+            <div>
+                <img src="{{profile.photo_url}}" alt="{{profile.name}}">
+                <h3>{{profile.name}}</h3>
+                <h3>{{profile.email}}</h3>
+            </div>
+            <div>
+                {{#each data}}
+                {{this}}<br />
+                {{/each}}
+            </div>
+        </section>
+    </script>
+    <link rel="stylesheet" href="https://developers.hubofallthings.com/css/main.949a.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Slab:300|Open+Sans:300,400,600,700">
+    <style type="text/css" media="screen">
+    	.hatlogin input {
+    		padding: 18px 30px;
+    		font-size: 1.1428571429rem;
+    		line-height: 1.6428571429rem;
+    		margin-bottom: 20px;
+    		border-radius: 3px;
+    	}	
+    </style>
+</head>
+
+<body class="home">
+    <header>
+        <div class="header__primary js-two-col-header-primary">
+            <div class="page-wrap">
+                <div><a href="/" class="logo icon-logo-hat-white">Hub of All Things</a>
+                    <div class="hamburger"><a href="http://hubofallthings.com/">What is the HAT</a>
+                    </div>
+                </div>
+                <nav class="js-hamburger-nav">
+                    <a href="https://developers.hubofallthings.com/">Developers</a>
+                    <a href="https://www.hatdex.org/">Data Exchange</a>
+                    <a href="https://hatcommunity.org/">Community Foundation</a>
+                    <a class="btn primary" href="https://hubofallthings.com/">Hub of All Things</a>
+                </nav>
+            </div>
+        </div>
+        <nav class="header__secondary js-two-col-nav-toggle">
+            <div>
+                <div class="page-wrap"></div>
+            </div>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="cnt-one-col">
+            <section class="cnt-one-col__banner banner">
+                <div class="page-wrap">
+                    <h1>CADE 2018</h1>
+                    <div class="hatlogin">
+                    	<input value="" name="hataddress" class="" id="hataddress-input" placeholder="testing.hubat.net" size="50">
+                    	<a id="hataddress-link" href="" class="btn primary large">Log in with your HAT</a></div>
+                    </div>
+                <div class="banner__background"></div>
+            </section>
+            <section class="hover-box cnt-one-col__hover-box page-wrap">
+                <h2>Review the data from your HAT</h2>
+                <div id="hat-content"></div>
+            </section>
+            <div class="page-wrap">
+                <section class="reach-out">
+                    <section class="reach-out__social">
+                        <h3>Stay in touch</h3><a target="_blank" href="https://www.facebook.com/hubofallthings/" class="icon-social-facebook js-track-link"></a> <a target="_blank" href="https://twitter.com/hubofallthings" class="icon-social-twitter js-track-link"></a> <a target="_blank" href="https://github.com/Hub-of-all-Things" class="icon-social-github js-track-link"></a>
+                    </section>
+                    <section>
+                    	<a href="https://developers.hubofallthings.com" class="btn large">View developement guides</a>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+    <section class="copyright">
+        <div class="page-wrap">
+            <div><span>© 2018 HAT Data Exchange Ltd.</span> </div>
+        </div>
+    </section>
+    <script type="text/javascript" charset="utf-8">
+    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhcHBsaWNhdGlvblZlcnNpb24iOiIwLjAuMSIsInN1YiI6IjEteklpbFg2QVwvQjIwTUFYU08rMDdNMW93OTN3RHdJZDRGYVBPUTlzNktndzBVSkN1MjlvYU9NOUxoRHA0cUJBZnloc09PXC9qeG1neW1qa1RVV1wvQXRXS2lFWkZocWtyejk3UXBjPSIsImFwcGxpY2F0aW9uIjoiY2FkZS1kZW1vIiwiaXNzIjoidGVzdGluZy5odWJhdC5uZXQiLCJleHAiOjE1MzE1NTUzNDEsImlhdCI6MTUyODk2MzM0MSwianRpIjoiMjQyYmM1MWIxN2U5MjYyNDkzZGQ0ODhiMmU5MWQzNTVjMWI3ODI5ZGE0NWI2MzQzNzg1MjY2ZTkzZDkwMWJmY2EyNzljMTU2NjU2NjA1ODE4NTY3MDJhOGQ0YmMzZmIwY2VjZjkwMjYyNGE1NjVlMzJmZWY2ZDgyZGExMjNlN2FhOTM0ZTA5OGNlNjEyNWU4OGZiNGZmZTdjYzFhM2FhZDViZmExMjhmNjQ4OTUwZTRiNDk2ZGM5YjllYzgxZjZmYWRlMDAyNGE1MTJjZTZmZGJlNWNiZGY4ZWQ3YTM3ZjE1ZDNmMTI5NmRhYjFiZGE5OTNjN2Y4MzVhY2U5NGRkYSJ9.GpKzJ0XnhAtfRJ6DqfQk1SZr9_7lFSl-9YZHiUThrKbZuX1iQuTx8W4abwPPmhhcVfZs6VELPSPfkeOl-Yx9_XmZqmxgbPiqo6cnY5CbV0hyHR9tz-bOVmJyLs0TUXo1JCZlOhxxfVCTUw_e91oSQM_61zZmumgAljfNFzEtvOtS-45sd-qn-LFMeVyruTvPnqPIRYdI7X8QDuPWvk4aSCLIu_w98l8-GHwtbnC2nX-acLAcGNDjofclFmrb-Q8Yjhr1Ld13nDYPcbNgD_2HfnzqqW3lOIhkYoaP_2-xd9-lsRhu-BU9IDmsh9hfaXOf_zhJmyDVDab6Z4a56qeQZg"
+    var dataDebitId = "app-cade-demo"
+    var decoded = jwt_decode(token);
+    var hat = decoded.iss;
+    console.log(decoded);
+
+    var source = document.getElementById("entry-template").innerHTML;
+    var template = Handlebars.compile(source);
+
+    document.getElementById("hataddress-input").addEventListener("input", function(){
+    	document.getElementById("hataddress-link").href = "https://" + document.getElementById("hataddress-input").value
+    });
+
+    fetch('https://' + hat + '/api/v2.6/data-debit/' + dataDebitId + '/values', {
+            headers: {
+                'X-Auth-Token': token
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(bundle) {
+            console.log(bundle);
+            var context = {
+                hat: hat,
+                profile: {
+                    name: _.find(bundle.bundle.profile, function(o) { return o.data.name != "" }).data.name,
+                    email: _.find(bundle.bundle.profile, function(o) { return o.data.email != "" }).data.email,
+                    photo_url: _.find(bundle.bundle.photo, function(o) { return o.data.photo_url != "" }).data.photo_url
+                },
+                data: _.map(bundle.bundle.messages, "data.message")
+            };
+            var html = template(context);
+
+            document.getElementById("hat-content").innerHTML = html
+        });
+    </script>
+</body>
+
+</html>
